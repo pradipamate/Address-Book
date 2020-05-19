@@ -78,19 +78,19 @@ class App extends Component {
         event.preventDefault()
         var info=this.state;
         console.log("info",info);
-        if(info.first_name!=="" && info.last_name!=="" && info.contact_number!=="" && info.email!==""){
-        if (this.state !== "") {
-            var data = {};
-            data.id = uuid.v4();
-            data.item = this.state;
-            this.props.dispatch(Add(data));
-            this.setState({ first_name: "", last_name: "", contact_number: "", email: "" });
+        if(info.first_name!==null && info.last_name!==null && info.contact_number!==null && info.email!==null){
+            if (this.state !== "") {
+                var data = {};
+                data.id = uuid.v4();
+                data.item = this.state;
+                this.props.dispatch(Add(data));
+                this.setState({ first_name: "", last_name: "", contact_number: "", email: "" });
+                }
             }
-        }
-        else{
-             alert("Please Fill All Information") ;
-           return false;
-        }
+            else{
+                alert("Please Fill All Information") ;
+            return false;
+            }
   
     }
 
