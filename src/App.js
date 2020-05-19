@@ -76,15 +76,22 @@ class App extends Component {
     // for add value
     submithandler = (event) => {
         event.preventDefault()
-        // console.log("input data", this.state)
+        var info=this.state;
+        console.log("info",info);
+        if(info.first_name!=="" && info.last_name!=="" && info.contact_number!=="" && info.email!==""){
         if (this.state !== "") {
-            // alert(this.state);
             var data = {};
             data.id = uuid.v4();
             data.item = this.state;
             this.props.dispatch(Add(data));
             this.setState({ first_name: "", last_name: "", contact_number: "", email: "" });
+            }
         }
+        else{
+             alert("Please Fill All Information") ;
+           return false;
+        }
+  
     }
 
     Edithandler = (event) => {
@@ -104,22 +111,23 @@ class App extends Component {
     updated_submithandler = (event) => {
         event.preventDefault()
         this.setState({ modalshow: false, })
-        if (this.state !== "") {
-            var newdata = {};
-            newdata.id = this.state.editid;
-            newdata.first_name = this.state.updated_first_name;
-            newdata.last_name = this.state.updated_last_name;
-            newdata.email = this.state.updated_email;
-            newdata.contact_number = this.state.updated_contact_number;
-            this.props.dispatch(updated(newdata));
-        }
+        
+            if (this.state !== "") {
+                var newdata = {};
+                newdata.id = this.state.editid;
+                newdata.first_name = this.state.updated_first_name;
+                newdata.last_name = this.state.updated_last_name;
+                newdata.email = this.state.updated_email;
+                newdata.contact_number = this.state.updated_contact_number;
+                this.props.dispatch(updated(newdata));
+            }
+        
     }
 
 
 
     //for remove single value
     list_value(event) {
-        // alert();
         this.props.dispatch(RemoveItemFromList(event.target.id))
     }
 
@@ -130,7 +138,6 @@ class App extends Component {
 
     render() {
         var myavailabledolist = this.props.myavailabledolist;
-        // console.log(myavailabledolist);
         if (myavailabledolist.length > 0 && myavailabledolist!==null) {
             var list = myavailabledolist.map(item => (
                 <Col sm={4} >
